@@ -68,14 +68,22 @@ class Handler(BaseHandler):
     def __init__(self, filepath):
         self.filepath = filepath
 
-    def ungzip(self, gziped):
-        ipdb.set_trace()
+    def ungzip(self, filepath):
+        f1 = gzip.open(filepath, 'rb')
+        content = f.read()
+
+        ungziped_path = filepath.replace('nc.gz', 'nc')
+        f2 = open(ungziped_path, 'wb')
+        f2.write(content)
+
+        return ungziped_path
 
     def parse_constraints(self, environ):
         buf_size = int(environ.get('pydap.handlers.netcdf.buf_size', 10000))
 
         try:
             self.ungzipped = self.ungzip(self.filepath)
+            ipdb.set_trace()
             fp = nc(self.filepath)
         except:
             message = 'Unable to open file %s.' % self.filepath
