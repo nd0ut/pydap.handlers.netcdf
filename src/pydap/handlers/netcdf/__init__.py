@@ -18,7 +18,7 @@ from pydap.exceptions import OpenFileError
 try:
     from nio import open_file as nc
     extensions = re.compile(
-            r"^.*\.(nc|cdf|netcdf|grb|grib|grb1|grib1|grb2|grib2|hd|hdf|he2|he4|hdfeos|ccm)$",
+            r"^.*\.(nc|nc.gz|cdf|netcdf|grb|grib|grb1|grib1|grb2|grib2|hd|hdf|he2|he4|hdfeos|ccm)$",
             re.IGNORECASE)
     var_attrs = lambda var: var.__dict__.copy()
     get_value = lambda var: var.get_value()
@@ -27,7 +27,7 @@ except ImportError:
     try:
         from netCDF4 import Dataset as nc
         extensions = re.compile(
-                r"^.*\.(nc|nc4|cdf|netcdf)$",
+                r"^.*\.(nc|nc.gz|nc4|cdf|netcdf)$",
                 re.IGNORECASE)
         var_attrs = lambda var: dict( (a, getattr(var, a))
                 for a in var.ncattrs() )
@@ -37,7 +37,7 @@ except ImportError:
         try:
             from Scientific.IO.NetCDF import NetCDFFile as nc
             extensions = re.compile(
-                    r"^.*\.(nc|cdf|netcdf)$",
+                    r"^.*\.(nc|nc.gz|cdf|netcdf)$",
                     re.IGNORECASE)
             var_attrs = lambda var: var.__dict__.copy()
             get_value = lambda var: var.getValue()
@@ -46,7 +46,7 @@ except ImportError:
             try:
                 from pynetcdf import NetCDFFile as nc
                 extensions = re.compile(
-                        r"^.*\.(nc|cdf|netcdf)$",
+                        r"^.*\.(nc|nc.gz|cdf|netcdf)$",
                         re.IGNORECASE)
                 var_attrs = lambda var: var.__dict__.copy()
                 get_value = lambda var: var.getValue()
@@ -54,7 +54,7 @@ except ImportError:
             except ImportError:
                 from pupynere import NetCDFFile as nc
                 extensions = re.compile(
-                        r"^.*\.(nc|cdf|netcdf)$",
+                        r"^.*\.(nc|nc.gz|cdf|netcdf)$",
                         re.IGNORECASE)
                 var_attrs = lambda var: var._attributes.copy()
                 get_value = lambda var: var.getValue()
