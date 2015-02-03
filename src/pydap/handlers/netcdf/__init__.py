@@ -68,8 +68,12 @@ class Handler(BaseHandler):
     def __init__(self, filepath):
         self.filepath = filepath
 
-        if not os.path.isfile(filepath.replace('nc.gz', 'nc')):
-            self.filepath = self.ungzip(self.filepath)
+        plain_netcdf_path = os.path.isfile(filepath.replace('nc.gz', 'nc'))
+
+        if not os.path.isfile(plain_netcdf_path):
+            self.filepath = self.ungzip(filepath)
+        else:
+            self.filepath = plain_netcdf_path
 
     def ungzip(self, filepath):
         f1 = gzip.open(filepath, 'rb')
@@ -85,7 +89,6 @@ class Handler(BaseHandler):
         buf_size = int(environ.get('pydap.handlers.netcdf.buf_size', 10000))
 
         try:
-            ipdb.set_trace()
             fp = nc(self.filepath)
         except:
             message = 'Unable to open file %s.' % self.filepath
