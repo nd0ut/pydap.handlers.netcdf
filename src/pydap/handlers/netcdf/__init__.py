@@ -66,9 +66,9 @@ class Handler(BaseHandler):
     extensions = extensions
 
     def __init__(self, filepath):
-        if os.path.isfile(filepath + '.gz'):
-            self.filepath = filepath
-        else:
+        self.filepath = filepath
+
+        if not os.path.isfile(filepath + '.gz'):
             self.filepath = self.ungzip(self.filepath)
 
         ipdb.set_trace()
