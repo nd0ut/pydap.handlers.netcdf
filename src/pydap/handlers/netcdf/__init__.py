@@ -70,7 +70,7 @@ class Handler(BaseHandler):
 
     def ungzip(self, filepath):
         f1 = gzip.open(filepath, 'rb')
-        content = f.read()
+        content = f1.read()
 
         ungziped_path = filepath.replace('nc.gz', 'nc')
         f2 = open(ungziped_path, 'wb')
