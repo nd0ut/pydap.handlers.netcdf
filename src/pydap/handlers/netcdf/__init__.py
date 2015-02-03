@@ -85,6 +85,7 @@ class Handler(BaseHandler):
         buf_size = int(environ.get('pydap.handlers.netcdf.buf_size', 10000))
 
         try:
+            ipdb.set_trace()
             fp = nc(self.filepath)
         except:
             message = 'Unable to open file %s.' % self.filepath
