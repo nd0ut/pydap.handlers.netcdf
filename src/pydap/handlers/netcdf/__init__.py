@@ -81,9 +81,10 @@ class Handler(BaseHandler):
     def parse_constraints(self, environ):
         buf_size = int(environ.get('pydap.handlers.netcdf.buf_size', 10000))
 
+        self.ungzipped = self.ungzip(self.filepath)
+        ipdb.set_trace()
+
         try:
-            self.ungzipped = self.ungzip(self.filepath)
-            ipdb.set_trace()
             fp = nc(self.filepath)
         except:
             message = 'Unable to open file %s.' % self.filepath
