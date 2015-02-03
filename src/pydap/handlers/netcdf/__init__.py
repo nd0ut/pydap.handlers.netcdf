@@ -66,7 +66,10 @@ class Handler(BaseHandler):
     extensions = extensions
 
     def __init__(self, filepath):
-        self.filepath = filepath
+        if os.path.isfile(filepath + '.gz'):
+            self.filepath = filepath
+        else:
+            self.filepath = self.ungzip(self.filepath)
 
     def ungzip(self, filepath):
         f1 = gzip.open(filepath, 'rb')
@@ -80,9 +83,6 @@ class Handler(BaseHandler):
 
     def parse_constraints(self, environ):
         buf_size = int(environ.get('pydap.handlers.netcdf.buf_size', 10000))
-
-        self.ungzipped = self.ungzip(self.filepath)
-        ipdb.set_trace()
 
         try:
             fp = nc(self.filepath)
