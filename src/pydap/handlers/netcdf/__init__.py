@@ -5,7 +5,7 @@ import time
 from stat import ST_MTIME
 from email.utils import formatdate
 import urllib
-
+import gzip
 import numpy
 
 from arrayterator import Arrayterator
@@ -68,11 +68,14 @@ class Handler(BaseHandler):
     def __init__(self, filepath):
         self.filepath = filepath
 
+    def ungzip(self, gziped):
+        ipdb.set_trace()
+
     def parse_constraints(self, environ):
         buf_size = int(environ.get('pydap.handlers.netcdf.buf_size', 10000))
 
         try:
-            ipdb.set_trace()
+            self.ungzipped = self.ungzip(self.filepath)
             fp = nc(self.filepath)
         except:
             message = 'Unable to open file %s.' % self.filepath
