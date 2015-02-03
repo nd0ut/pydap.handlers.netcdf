@@ -68,7 +68,7 @@ class Handler(BaseHandler):
     def __init__(self, filepath):
         self.filepath = filepath
 
-        plain_netcdf_path = os.path.isfile(filepath.replace('nc.gz', 'nc'))
+        plain_netcdf_path = filepath.replace('nc.gz', 'nc')
 
         if not os.path.isfile(plain_netcdf_path):
             self.filepath = self.ungzip(filepath)
