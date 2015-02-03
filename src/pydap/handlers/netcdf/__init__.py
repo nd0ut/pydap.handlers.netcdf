@@ -71,8 +71,6 @@ class Handler(BaseHandler):
         if not os.path.isfile(filepath + '.gz'):
             self.filepath = self.ungzip(self.filepath)
 
-        ipdb.set_trace()
-
     def ungzip(self, filepath):
         f1 = gzip.open(filepath, 'rb')
         content = f1.read()
